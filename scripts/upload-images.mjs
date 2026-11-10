@@ -16,7 +16,7 @@ function loadEnv() {
 }
 loadEnv();
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://uoefljjbzjysuxarkxvj.supabase.co';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://pwgfknmywdvycshimesg.supabase.co';
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const BUCKET_NAME = 'product-images';
 
@@ -84,40 +84,78 @@ async function uploadAllImages() {
 
   console.log(`Found ${uploadQueue.length} images across ${skuFolders.length} product SKU folders to upload.`);
 
-  const CONCURRENCY = 15;
+  const CONCURRENCY = 3;
   let completed = 0;
   let failed = 0;
   const startTime = Date.now();
 
-  async function worker(items) {
-    for (const item of items) {
-      try {
-        const fileBuffer = fs.readFileSync(item.fullPath);
-        const ext = path.extname(item.filename).toLowerCase();
-        let mimeType = 'image/webp';
-        if (ext === '.png') mimeType = 'image/png';
-        else if (ext === '.jpg' || ext === '.jpeg') mimeType = 'image/jpeg';
-        else if (ext === '.svg') mimeType = 'image/svg+xml';
+  const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
+  async function uploadItem(item) {
+    const fileBuffer = fs.readFileSync(item.fullPath);
+    const ext = path.extname(item.filename).toLowerCase();
+    let mimeType = 'image/webp';
+    if (ext === '.png') mimeType = 'image/png';
+    else if (ext === '.jpg' || ext === '.jpeg') mimeType = 'image/jpeg';
+    else if (ext === '.svg') mimeType = 'image/svg+xml';
+
+    let attempts = 0;
+    const maxAttempts = 4;
+
+    while (attempts < maxAttempts) {
+      attempts++;
+      try {
         const { error } = await supabase.storage
           .from(BUCKET_NAME)
           .upload(item.storagePath, fileBuffer, {
             contentType: mimeType,
-            upsert: true
+            upsert: true,
           });
 
-        if (error) {
-          console.error(`Failed ${item.storagePath}:`, error.message);
-          failed++;
-        } else {
+        if (!error) {
           completed++;
+          return true;
         }
+
+        const msg = error.message || '';
+        if (
+          msg.includes('Too many connections') ||
+          msg.includes('rate limit') ||
+          msg.includes('fetch failed') ||
+          msg.includes('503') ||
+          msg.includes('504')
+        ) {
+          // Exponential backoff when Supabase database pool is crowded
+          const waitTime = attempts * 1200 + Math.floor(Math.random() * 400);
+          await sleep(waitTime);
+          continue;
+        }
+
+        console.error(`Failed ${item.storagePath}:`, msg);
+        failed++;
+        return false;
       } catch (err) {
+        if (attempts < maxAttempts) {
+          await sleep(attempts * 1200);
+          continue;
+        }
         console.error(`Exception on ${item.storagePath}:`, err.message);
         failed++;
+        return false;
       }
+    }
 
-      if ((completed + failed) % 100 === 0 || completed + failed === uploadQueue.length) {
+    console.error(`Gave up on ${item.storagePath} after ${maxAttempts} attempts.`);
+    failed++;
+    return false;
+  }
+
+  async function worker(items) {
+    for (const item of items) {
+      await uploadItem(item);
+      await sleep(35); // small throttle to prevent connection spikes
+
+      if ((completed + failed) % 50 === 0 || completed + failed === uploadQueue.length) {
         const percent = (((completed + failed) / uploadQueue.length) * 100).toFixed(1);
         const elapsed = ((Date.now() - startTime) / 1000).toFixed(1);
         console.log(`Progress: ${completed + failed}/${uploadQueue.length} (${percent}%) - Uploaded: ${completed}, Failed: ${failed} [${elapsed}s]`);

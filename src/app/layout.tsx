@@ -7,6 +7,14 @@ export const metadata: Metadata = {
   title: 'Virsaa Gifts | Sustainable & Customizable Corporate Gifting',
   description: 'Gifts That Carry Your Story. Handcrafted sustainable corporate gifts using reclaimed wood, cork, bamboo, and preserved moss art. Personalized Indian craftsmanship.',
   keywords: ['corporate gifts India', 'sustainable gifts', 'preserved moss art', 'custom wooden corporate gifts', 'cork accessories', 'bamboo stationery'],
+  icons: {
+    icon: [
+      { url: '/logo.png' },
+      { url: '/icon.png' }
+    ],
+    shortcut: '/logo.png',
+    apple: '/logo.png',
+  },
 };
 
 export default function RootLayout({

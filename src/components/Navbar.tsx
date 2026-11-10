@@ -31,12 +31,18 @@ export default function Navbar() {
   ];
 
   const isTouchRef = useRef(false);
+  const prevPathnameRef = useRef(pathname);
 
   // Close dropdowns on route changes
   useEffect(() => {
-    setDesktopCatalogueOpen(false);
-    setMobileMenuOpen(false);
-    setMobileCatalogueOpen(false);
+    if (prevPathnameRef.current !== pathname) {
+      prevPathnameRef.current = pathname;
+      requestAnimationFrame(() => {
+        setDesktopCatalogueOpen(false);
+        setMobileMenuOpen(false);
+        setMobileCatalogueOpen(false);
+      });
+    }
   }, [pathname]);
 
   // Handle clicking/tapping outside the desktop/tablet dropdown
@@ -277,7 +283,7 @@ export default function Navbar() {
               {/* Mobile Catalogue Dropdown Button */}
               <button
                 type="button"
-                onClick={() => setMobileCatalogueOpen((prev) => !prev)}
+                onClick={toggleMobileCatalogue}
                 className={`flex items-center justify-center gap-1.5 px-3 py-2.5 rounded-xl text-xs font-bold uppercase tracking-wider transition-all duration-200 text-center cursor-pointer ${
                   mobileCatalogueOpen || isCatalogueActive
                     ? 'bg-[#C88B56]/25 text-[#E4B58A] border border-[#C88B56]/40'

@@ -54,18 +54,25 @@ export default function ProductImage({
   }
 
   const handleError = () => {
-    // Fallback hierarchy:
-    // 1. Try first gallery image if hero failed
+    // 1. If pointing to Supabase Storage, fallback to the locally bundled copy in /products/...
+    if (currentSrc.includes('/storage/v1/object/public/')) {
+      const match = currentSrc.match(/\/product-images\/(.+)$/);
+      if (match && match[1]) {
+        setCurrentSrc(`/products/${match[1]}`);
+        return;
+      }
+    }
+    // 2. Try first gallery image if hero failed
     if (product?.images && product.images.length > 1 && currentSrc !== getProductImageUrl(product.images[1])) {
       setCurrentSrc(getProductImageUrl(product.images[1]));
       return;
     }
-    // 2. Try default placeholder
+    // 3. Try default placeholder
     if (currentSrc !== fallbackSrc) {
       setCurrentSrc(fallbackSrc);
       return;
     }
-    // 3. Mark as permanent error for decorative icon fallback
+    // 4. Mark as permanent error for decorative icon fallback
     setHasError(true);
   };
 

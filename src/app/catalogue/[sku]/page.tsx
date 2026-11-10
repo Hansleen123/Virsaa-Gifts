@@ -31,6 +31,7 @@ export default function ProductDetailPage() {
   const [product, setProduct] = useState<Product | null>(null);
   const [relatedProducts, setRelatedProducts] = useState<Product[]>([]);
   const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [imageErrors, setImageErrors] = useState<Record<number, boolean>>({});
   const [selectedModalProduct, setSelectedModalProduct] = useState<Product | null>(null);
   const [loading, setLoading] = useState(true);
 
@@ -162,10 +163,15 @@ export default function ProductDetailPage() {
             {/* Big Active Image */}
             <div className="relative aspect-4/3 w-full rounded-3xl overflow-hidden bg-[#F4EFEA] border border-[#E8DFC8] shadow-lg">
               <Image
-                src={getProductImageUrl(activeImage)}
+                src={
+                  imageErrors[selectedImageIndex] && activeImage
+                    ? `/products/${(typeof activeImage === 'object' ? activeImage.storage_path : activeImage).replace(/^\/?products\//, '').replace(/^\/+/, '')}`
+                    : getProductImageUrl(activeImage)
+                }
                 alt={product.name}
                 fill
                 priority
+                onError={() => setImageErrors((prev) => ({ ...prev, [selectedImageIndex]: true }))}
                 className="object-contain transition-all duration-300 p-2"
               />
               <div className="absolute top-4 left-4 flex flex-wrap gap-2">
@@ -193,9 +199,14 @@ export default function ProductDetailPage() {
                     }`}
                   >
                     <Image
-                      src={getProductImageUrl(img)}
+                      src={
+                        imageErrors[idx]
+                          ? `/products/${(typeof img === 'object' ? img.storage_path : img).replace(/^\/?products\//, '').replace(/^\/+/, '')}`
+                          : getProductImageUrl(img)
+                      }
                       alt={`${product.name} preview ${idx + 1}`}
                       fill
+                      onError={() => setImageErrors((prev) => ({ ...prev, [idx]: true }))}
                       className="object-cover"
                     />
                   </button>

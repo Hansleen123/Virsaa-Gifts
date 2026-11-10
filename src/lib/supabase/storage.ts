@@ -4,7 +4,7 @@ import { Product, ProductImage } from './types';
 export const SUPABASE_STORAGE_BUCKET = 'product-images';
 export const ENQUIRY_ATTACHMENTS_BUCKET = 'enquiry-attachments';
 export const SUPABASE_BASE_URL = 
-  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://uoefljjbzjysuxarkxvj.supabase.co';
+  process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://pwgfknmywdvycshimesg.supabase.co';
 
 export const DEFAULT_PLACEHOLDER = 
   'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80';

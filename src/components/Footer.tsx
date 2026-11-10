@@ -3,7 +3,7 @@
 import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { Mail, Phone, MapPin, ShieldCheck, Leaf } from 'lucide-react';
+import { Mail, Phone, MapPin, Leaf } from 'lucide-react';
 import FooterLogo from '../../Someone is already doing it..png';
 
 export default function Footer({ flat = false }: { flat?: boolean }) {

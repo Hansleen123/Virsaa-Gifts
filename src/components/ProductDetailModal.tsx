@@ -27,6 +27,20 @@ interface ProductDetailModalProps {
   onEnquire?: (product: Product) => void;
 }
 
+function getSmartImageUrl(img: ProductImage | string | null | undefined, failed: boolean, thumb = false) {
+  if (failed) {
+    const rawPath = typeof img === 'object' && img?.storage_path ? img.storage_path : (typeof img === 'string' ? img : '');
+    if (rawPath && !rawPath.startsWith('http')) {
+      const clean = rawPath.replace(/^\/?products\//, '').replace(/^\/+/, '');
+      return `/products/${clean}`;
+    }
+    return thumb 
+      ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=200&q=80'
+      : 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80';
+  }
+  return getProductImageUrl(img);
+}
+
 export default function ProductDetailModal({
   product,
   isOpen,
@@ -141,11 +155,7 @@ export default function ProductDetailModal({
               {/* Main Image Viewport */}
               <div className="relative aspect-4/3 sm:aspect-square w-full rounded-2xl bg-white border border-[#EBE4D8] overflow-hidden flex items-center justify-center group">
                 <Image
-                  src={
-                    imgError[activeImageIndex] 
-                      ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=800&q=80'
-                      : getProductImageUrl(currentImage)
-                  }
+                  src={getSmartImageUrl(currentImage, Boolean(imgError[activeImageIndex]))}
                   alt={product.name}
                   fill
                   className="object-contain sm:object-cover p-2 sm:p-0 transition-transform duration-500 group-hover:scale-105"
@@ -207,9 +217,10 @@ export default function ProductDetailModal({
                       }`}
                     >
                       <Image
-                        src={imgError[idx] ? 'https://images.unsplash.com/photo-1544816155-12df9643f363?auto=format&fit=crop&w=200&q=80' : getProductImageUrl(img)}
+                        src={getSmartImageUrl(img, Boolean(imgError[idx]), true)}
                         alt={`Thumb ${idx + 1}`}
                         fill
+                        onError={() => setImgError((prev) => ({ ...prev, [idx]: true }))}
                         className="object-cover"
                         sizes="80px"
                       />

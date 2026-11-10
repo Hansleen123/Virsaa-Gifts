@@ -16,7 +16,7 @@ function loadEnv() {
 }
 loadEnv();
 
-const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://uoefljjbzjysuxarkxvj.supabase.co';
+const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL || 'https://pwgfknmywdvycshimesg.supabase.co';
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY || '';
 const BUCKET_NAME = 'product-images';
 
