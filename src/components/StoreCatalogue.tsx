@@ -16,14 +16,10 @@ import {
   SlidersHorizontal, 
   X, 
   Filter, 
-  Sparkles, 
   ChevronDown, 
   RotateCcw,
-  Check,
-  Layers,
   Leaf,
   Clock,
-  Shield,
   PackageCheck
 } from 'lucide-react';
 
@@ -53,7 +49,7 @@ export default function StoreCatalogue({
   type SortOption = 'featured' | 'price_asc' | 'price_desc' | 'name_asc';
   const [products, setProducts] = useState<Product[]>([]);
   const [categories, setCategories] = useState<Category[]>([]);
-  const [collections, setCollections] = useState<Collection[]>([]);
+  const [_collections, setCollections] = useState<Collection[]>([]);
   const [loading, setLoading] = useState(true);
 
   // Filter states

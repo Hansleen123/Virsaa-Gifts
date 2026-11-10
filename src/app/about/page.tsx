@@ -14,9 +14,12 @@ import {
   Heart, 
   ChevronDown, 
   Sparkles,
-  Award,
   Globe2,
-  Compass
+  Compass,
+  Lightbulb,
+  Eye,
+  Target,
+  Quote
 } from 'lucide-react';
 
 const values = [
@@ -40,13 +43,6 @@ const values = [
     title: 'Heirloom Emotion',
     text: 'Objects sculpted to live proudly on executive desks for years, continually telling your story.',
   },
-];
-
-const stats = [
-  { value: '1.2L+', label: 'Keepsakes Delivered', sub: 'To leading enterprises pan-India' },
-  { value: '25+', label: 'Artisan Workshops', sub: 'Traditional certified craft clusters' },
-  { value: '100%', label: 'Plastic-Free Line', sub: 'Biodegradable & circular materials' },
-  { value: '4.9/5', label: 'Client Satisfaction', sub: 'Trusted across Fortune 500' },
 ];
 
 const journey = [
@@ -122,10 +118,10 @@ export default function AboutPage() {
       {/* Floating Pill Navigation */}
       <Navbar />
 
-      {/* Generous top padding so pill navbar never overlaps content */}
+      {/* Main Container */}
       <main className="flex-grow pt-32 sm:pt-40">
         {/* ===================================================================== */}
-        {/* 1. HERO SECTION WITH LUXURY FRAMES */}
+        {/* 1. HERO SECTION */}
         {/* ===================================================================== */}
         <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-16 sm:pb-24">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
@@ -148,7 +144,7 @@ export default function AboutPage() {
                 className="font-serif-luxury text-4xl sm:text-5xl lg:text-6xl font-normal tracking-tight text-[#1F332B] leading-[1.1]"
               >
                 Gifting with Purpose. <br />
-                <span className="italic text-gold-gradient font-normal">Crafted to Endure.</span>
+                <span className="italic text-gold-gradient font-normal">Rooted in Heritage.</span>
               </motion.h1>
 
               <motion.p 
@@ -157,10 +153,8 @@ export default function AboutPage() {
                 transition={{ delay: 0.2 }}
                 className="text-stone-600 text-base sm:text-lg leading-relaxed font-sans max-w-xl"
               >
-                We unite thoughtful design, renewable botanicals, and Indian craftsmanship into corporate keepsakes that foster lasting connection.
+                We bring together authentic Indian craftsmanship, renewable botanicals, and conscious design to create sustainable corporate keepsakes that tell enduring stories.
               </motion.p>
-
-              
             </div>
 
             {/* Right: Dual Layered Framed Artwork */}
@@ -206,43 +200,187 @@ export default function AboutPage() {
         </section>
 
         {/* ===================================================================== */}
-        {/* 2. MANIFESTO & KEY STATS (COMPACT ROUNDED DIV CARD) */}
+        {/* 2. A NOTE FROM THE FOUNDER — HANSLEEN KAUR */}
         {/* ===================================================================== */}
-        <section className="py-6 sm:py-10 px-4 sm:px-6 lg:px-8">
-          <div className="max-w-4xl mx-auto rounded-3xl bg-[#12211B] border border-[#C88B56]/30 p-6 sm:p-8 shadow-xl relative overflow-hidden text-white">
-            {/* Ambient subtle glow */}
-            <div className="absolute -top-20 left-1/3 w-72 h-72 bg-[#C88B56]/15 rounded-full blur-[90px] pointer-events-none" />
-            <div className="absolute -bottom-20 right-1/4 w-72 h-72 bg-[#2D4A3E]/30 rounded-full blur-[90px] pointer-events-none" />
+        <section className="py-12 sm:py-20 px-4 sm:px-6 lg:px-8">
+          <div className="max-w-6xl mx-auto rounded-[2.5rem] bg-[#12211B] border border-[#C88B56]/40 shadow-2xl overflow-hidden relative text-white">
+            {/* Ambient subtle glow background */}
+            <div className="absolute -top-32 -left-32 w-96 h-96 bg-[#C88B56]/15 rounded-full blur-[110px] pointer-events-none" />
+            <div className="absolute -bottom-32 -right-32 w-96 h-96 bg-[#2E4B3F]/35 rounded-full blur-[110px] pointer-events-none" />
 
-            <div className="relative z-10">
-              {/* Minimalist Quote */}
-              <div className="text-center max-w-2xl mx-auto mb-6">
-                <div className="inline-flex items-center gap-2 text-[11px] uppercase tracking-widest font-bold text-[#E4B58A] mb-2 font-sans">
-                  <Award className="w-3.5 h-3.5" />
-                  <span>Our Core Conviction</span>
+            {/* Gold hairline accent along the top */}
+            <div
+              aria-hidden
+              className="absolute top-0 left-1/2 -translate-x-1/2 h-[3px] w-2/3 rounded-b-full bg-gradient-to-r from-transparent via-[#C88B56] to-transparent"
+            />
+
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14 items-center p-6 sm:p-12 lg:p-16 relative z-10">
+              
+              {/* Left Column: Founder Portrait */}
+              <div className="lg:col-span-5 flex justify-center">
+                <div className="relative w-full max-w-sm aspect-[3/4] rounded-3xl overflow-hidden border-2 border-[#E4B58A]/35 shadow-2xl group">
+                  <Image
+                    src="/founder.png"
+                    alt="Hansleen Kaur — Founder, Virsaa"
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 35vw"
+                    className="object-cover object-top transition-transform duration-700 group-hover:scale-105"
+                  />
+                  {/* Subtle vignette gradient */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-[#12211B]/95 via-[#12211B]/15 to-transparent" />
+                  
+                  {/* Name Card Overlay */}
+                  <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-[#12211B]/85 backdrop-blur-md border border-[#E4B58A]/30 text-white">
+                    <div className="flex items-center justify-between">
+                      <div>
+                        <h3 className="font-serif-luxury text-xl sm:text-2xl font-normal text-white">
+                          Hansleen Kaur
+                        </h3>
+                        <p className="text-[11px] uppercase tracking-wider text-[#E4B58A] font-bold mt-0.5 font-sans">
+                          Founder, Virsaa
+                        </p>
+                      </div>
+                      <div className="w-9 h-9 rounded-full bg-[#C88B56]/20 border border-[#C88B56]/40 flex items-center justify-center text-[#E4B58A]">
+                        <Sparkles className="w-4 h-4" />
+                      </div>
+                    </div>
+                  </div>
                 </div>
-                <h2 className="font-serif-luxury text-lg sm:text-xl md:text-2xl font-normal leading-relaxed text-white">
-                  &ldquo;A corporate gift is a handshake across distance. It should reflect honour, craftsmanship, and planetary responsibility.&rdquo;
-                </h2>
               </div>
 
-              {/* Impact Metric Cards */}
-              
+              {/* Right Column: Founder's Note Narrative */}
+              <div className="lg:col-span-7 space-y-6">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#C88B56]/20 border border-[#C88B56]/40 text-[#E4B58A] text-xs uppercase tracking-widest font-bold font-sans">
+                  <Quote className="w-3.5 h-3.5" />
+                  <span>A Note from the Founder</span>
+                </div>
+
+                <h2 className="font-serif-luxury text-2xl sm:text-3xl lg:text-4xl font-normal text-white leading-snug">
+                  &ldquo;I believe that every gift tells a story, and every story has the power to create an impact.&rdquo;
+                </h2>
+
+                <div className="space-y-4 text-stone-300 text-sm sm:text-base leading-relaxed font-sans font-light">
+                  <p>
+                    Virsaa began with a simple thought &mdash; to make gifting more meaningful, sustainable and rooted in our heritage. What started as an idea has grown into a journey of creativity, purpose and passion.
+                  </p>
+                  <p>
+                    Through Virsaa, I aspire to celebrate Indian craftsmanship, empower local artisans and encourage businesses to choose gifts that go beyond material value.
+                  </p>
+                  <p className="text-white font-normal italic">
+                    For me, success is not just about what we create, but the difference we leave behind.
+                  </p>
+                </div>
+
+                <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  <div>
+                    <p className="font-serif-luxury text-lg text-[#E4B58A] italic">
+                      Let&apos;s make every gift count.
+                    </p>
+                    <p className="text-xs uppercase tracking-widest font-bold text-stone-400 mt-1 font-sans">
+                      Hansleen Kaur &mdash; Founder, Virsaa
+                    </p>
+                  </div>
+
+                  <Link
+                    href="/catalogue"
+                    className="inline-flex items-center gap-2 px-6 py-2.5 rounded-full bg-gradient-to-r from-[#C88B56] to-[#A86F3E] text-white text-xs uppercase tracking-wider font-bold font-sans border border-[#E4B58A]/40 shadow-sm hover:brightness-105 transition-all self-start sm:self-auto"
+                  >
+                    <span>Explore Curations</span>
+                  </Link>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
 
         {/* ===================================================================== */}
-        {/* 3. OUR STORY & TIMELINE (WITH RESTORED DUAL IMAGE COMPOSITION) */}
+        {/* 3. OUR INSPIRATION, VISION & MISSION */}
         {/* ===================================================================== */}
-        <section className="py-20 sm:py-24 bg-moving-gradient-light relative overflow-hidden">
+        <section className="py-16 sm:py-24 bg-[#FAF8F5] relative">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center max-w-2xl mx-auto mb-14">
+              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-[#C88B56] mb-2 font-sans">
+                <Sparkles className="w-3.5 h-3.5" />
+                <span>The Heart of Virsaa</span>
+              </div>
+              <h2 className="font-serif-luxury text-3xl sm:text-4xl lg:text-5xl font-normal text-[#1F332B] tracking-tight">
+                Inspiration, Vision & Mission
+              </h2>
+              <p className="text-stone-600 text-sm sm:text-base mt-3 font-sans leading-relaxed">
+                Bringing India&apos;s cultural heritage and contemporary sustainability together in every keepsake.
+              </p>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
+              
+              {/* Card 1: Our Inspiration */}
+              <div className="p-8 rounded-3xl bg-white border border-[#E8DFC8] shadow-xs hover:shadow-xl hover:border-[#C88B56]/50 transition-all duration-300 flex flex-col group relative overflow-hidden">
+                <div className="w-12 h-12 rounded-2xl bg-[#1F332B]/10 text-[#1F332B] flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-[#C88B56] group-hover:text-white transition-all shadow-xs">
+                  <Lightbulb className="w-6 h-6" />
+                </div>
+                <div className="inline-block text-[11px] uppercase tracking-widest font-bold text-[#C88B56] mb-2 font-sans">
+                  The Genesis
+                </div>
+                <h3 className="font-serif-luxury text-2xl font-normal text-[#1F332B] mb-4">
+                  Our Inspiration
+                </h3>
+                <p className="text-stone-600 text-sm leading-relaxed font-sans flex-grow">
+                  Inspired by India&apos;s rich cultural heritage, the beauty of handmade craftsmanship and the belief that small choices can create a lasting impact. Virsaa was born from a vision to bring tradition and sustainability together in a contemporary way.
+                </p>
+              </div>
+
+              {/* Card 2: Our Vision (Luxury Forest Green Focal Card) */}
+              <div className="p-8 rounded-3xl bg-[#1F332B] text-white border border-[#C88B56]/40 shadow-xl hover:shadow-2xl transition-all duration-300 flex flex-col group relative overflow-hidden">
+                {/* Subtle card glow */}
+                <div className="absolute -top-16 -right-16 w-40 h-40 bg-[#C88B56]/20 rounded-full blur-[60px] pointer-events-none" />
+
+                <div className="w-12 h-12 rounded-2xl bg-white/10 text-[#E4B58A] flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-[#C88B56] group-hover:text-white transition-all shadow-xs">
+                  <Eye className="w-6 h-6" />
+                </div>
+                <div className="inline-block text-[11px] uppercase tracking-widest font-bold text-[#E4B58A] mb-2 font-sans">
+                  Our North Star
+                </div>
+                <h3 className="font-serif-luxury text-2xl font-normal text-white mb-4">
+                  Our Vision
+                </h3>
+                <p className="text-stone-300 text-sm leading-relaxed font-sans flex-grow font-light">
+                  To redefine gifting through sustainability, creativity and Indian heritage, creating a future where every gift carries meaning, purpose and a positive impact.
+                </p>
+              </div>
+
+              {/* Card 3: Our Mission */}
+              <div className="p-8 rounded-3xl bg-white border border-[#E8DFC8] shadow-xs hover:shadow-xl hover:border-[#C88B56]/50 transition-all duration-300 flex flex-col group relative overflow-hidden">
+                <div className="w-12 h-12 rounded-2xl bg-[#1F332B]/10 text-[#1F332B] flex items-center justify-center mb-6 group-hover:scale-105 group-hover:bg-[#C88B56] group-hover:text-white transition-all shadow-xs">
+                  <Target className="w-6 h-6" />
+                </div>
+                <div className="inline-block text-[11px] uppercase tracking-widest font-bold text-[#C88B56] mb-2 font-sans">
+                  The Commitment
+                </div>
+                <h3 className="font-serif-luxury text-2xl font-normal text-[#1F332B] mb-4">
+                  Our Mission
+                </h3>
+                <p className="text-stone-600 text-sm leading-relaxed font-sans flex-grow">
+                  To transform traditional craftsmanship into meaningful, sustainable gifting experiences while empowering local artisans, supporting conscious choices and bringing innovation into the art of gifting.
+                </p>
+              </div>
+
+            </div>
+          </div>
+        </section>
+
+        {/* ===================================================================== */}
+        {/* 4. OUR STORY & TIMELINE */}
+        {/* ===================================================================== */}
+        <section className="py-20 sm:py-24 bg-moving-gradient-light relative overflow-hidden border-t border-[#E8DFC8]/60">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
               
               {/* Left Framed Dual Picture Composition */}
               <div className="lg:col-span-5 relative pb-8 pr-6">
                 {/* Main Large Frame */}
-                <div className="frame-luxury-gold relative aspect-[4/3] sm:aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
+                <div className="frame-luxury-gold relative aspect-[4/3] rounded-3xl overflow-hidden shadow-2xl">
                   <div className="relative w-full h-full rounded-2xl overflow-hidden border border-[#E4B58A]/30">
                     <Image
                       src="/image.png"
@@ -294,7 +432,7 @@ export default function AboutPage() {
                       key={step.year} 
                       className="p-4 sm:p-4.5 rounded-2xl bg-white border border-[#E8DFC8] hover:border-[#C88B56]/50 shadow-2xs hover:shadow-md transition-all flex items-start gap-4"
                     >
-                      <div className="px-3 py-1.5 rounded-xl  text-[golden] font-serif-luxury text-sm font-medium shrink-0">
+                      <div className="px-3 py-1.5 rounded-xl bg-[#1F332B]/5 text-[#C88B56] font-serif-luxury text-sm font-bold shrink-0">
                         {step.year}
                       </div>
                       <div>
@@ -311,7 +449,7 @@ export default function AboutPage() {
         </section>
 
         {/* ===================================================================== */}
-        {/* 4. WHAT WE VALUE — GUIDING PRINCIPLES (GREEN WRAPPER) */}
+        {/* 5. GUIDING PRINCIPLES */}
         {/* ===================================================================== */}
         <section className="py-16 sm:py-24 bg-moving-gradient-light">
           <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -322,7 +460,7 @@ export default function AboutPage() {
 
               <div className="relative z-10">
                 <div className="max-w-2xl mx-auto text-center mb-10 sm:mb-14">
-                  <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-[#E4B58A] mb-2">
+                  <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-[#E4B58A] mb-2 font-sans">
                     <Leaf className="w-4 h-4" />
                     <span>Our Guiding Principles</span>
                   </div>
@@ -330,7 +468,7 @@ export default function AboutPage() {
                     Purpose in Every Detail
                   </h2>
                   <p className="text-stone-300 mt-3 text-sm sm:text-base font-sans leading-relaxed">
-                    Four commitments guide every bespoke creation we build and ship.
+                    Four commitments guide every bespoke creation we craft and deliver.
                   </p>
                 </div>
 
@@ -361,12 +499,12 @@ export default function AboutPage() {
         </section>
 
         {/* ===================================================================== */}
-        {/* 5. HOW GIFTING WITH VIRSAA WORKS */}
+        {/* 6. HOW GIFTING WITH VIRSAA WORKS */}
         {/* ===================================================================== */}
         <section className="py-24 bg-[#FAF8F5] relative border-t border-[#E8DFC8]/60">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-[#C88B56] mb-3">
+              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-[#C88B56] mb-3 font-sans">
                 <Compass className="w-4 h-4" />
                 <span>Effortless Execution</span>
               </div>
@@ -406,7 +544,7 @@ export default function AboutPage() {
         </section>
 
         {/* ===================================================================== */}
-        {/* 6. FAQ ACCORDION */}
+        {/* 7. FAQ ACCORDION */}
         {/* ===================================================================== */}
         <section className="bg-moving-gradient-subtle py-24 border-t border-[#E8DFC8]/50 relative overflow-hidden">
           <div
@@ -416,7 +554,7 @@ export default function AboutPage() {
           />
           <div className="relative max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-14">
-              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-[#C88B56] mb-2">
+              <div className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-bold text-[#C88B56] mb-2 font-sans">
                 <span>Frequently Asked Questions</span>
               </div>
               <h2 className="font-serif-luxury text-3xl sm:text-4xl font-normal text-[#1F332B]">
@@ -431,7 +569,7 @@ export default function AboutPage() {
                   <div key={faq.q} className="bg-white rounded-2xl border border-[#E8DFC8] overflow-hidden shadow-2xs">
                     <button
                       onClick={() => setOpenFaq(open ? null : idx)}
-                      className="w-full flex items-center justify-between gap-4 text-left px-5 sm:px-6 py-4.5"
+                      className="w-full flex items-center justify-between gap-4 text-left px-5 sm:px-6 py-4.5 cursor-pointer"
                     >
                       <span className="text-sm font-bold text-[#1F332B] font-sans">{faq.q}</span>
                       <span className={`shrink-0 w-7 h-7 rounded-full bg-[#1F332B]/[0.06] flex items-center justify-center text-[#1F332B] transition-transform duration-300 ${open ? 'rotate-180 bg-[#C88B56] text-white' : ''}`}>
@@ -451,7 +589,7 @@ export default function AboutPage() {
         </section>
 
         {/* ===================================================================== */}
-        {/* 7. CLOSING CALL TO ACTION */}
+        {/* 8. CLOSING CALL TO ACTION */}
         {/* ===================================================================== */}
         <section className="bg-[#12211B] py-20 text-white relative overflow-hidden rounded-tl-[2.5rem] rounded-tr-[2.5rem]">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
@@ -459,7 +597,7 @@ export default function AboutPage() {
               <h2 className="font-serif-luxury text-3xl sm:text-5xl font-normal tracking-tight mb-4">
                 Let&apos;s Create Gifts Worth Remembering
               </h2>
-              <p className="text-stone-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto mb-8 font-sans">
+              <p className="text-stone-300 text-sm sm:text-base leading-relaxed max-w-xl mx-auto mb-8 font-sans font-light">
                 Tell us about your recipients, timeline and aesthetic vision. We&apos;ll design custom 3D renders tailored to your brand.
               </p>
               <div className="flex flex-wrap items-center justify-center gap-4">
@@ -472,7 +610,7 @@ export default function AboutPage() {
                 </Link>
                 <button
                   onClick={() => setEnquiryModalOpen(true)}
-                  className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold uppercase tracking-wider font-sans border border-white/25 active:scale-98 transition-all"
+                  className="px-7 py-3.5 rounded-full bg-white/10 hover:bg-white/20 text-white text-xs sm:text-sm font-bold uppercase tracking-wider font-sans border border-white/25 active:scale-98 transition-all cursor-pointer"
                 >
                   Talk to Our Team
                 </button>
