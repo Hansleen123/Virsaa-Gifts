@@ -2687,3 +2687,31 @@ INSERT INTO public.product_images (id, product_id, storage_path, image_type, sor
 INSERT INTO public.product_images (id, product_id, storage_path, image_type, sort_order) VALUES ('ZQ10-img-3', 'prod-474', 'zq10/image-3.webp', 'gallery', 3) ON CONFLICT (id) DO NOTHING;
 INSERT INTO public.product_images (id, product_id, storage_path, image_type, sort_order) VALUES ('ZQ10-img-4', 'prod-474', 'zq10/image-4.webp', 'gallery', 4) ON CONFLICT (id) DO NOTHING;
 INSERT INTO public.product_images (id, product_id, storage_path, image_type, sort_order) VALUES ('ZQ10-img-5', 'prod-474', 'zq10/image-5.webp', 'gallery', 5) ON CONFLICT (id) DO NOTHING;
+
+
+-- =============================================================================
+-- ADMIN PORTAL CREDENTIALS (2FA SETUP)
+-- =============================================================================
+CREATE TABLE IF NOT EXISTS public.admin_credentials (
+  id                TEXT PRIMARY KEY,
+  email             TEXT NOT NULL UNIQUE,
+  password_salt     TEXT NOT NULL,
+  password_hash     TEXT NOT NULL,
+  two_factor_secret TEXT NOT NULL,
+  created_at        TIMESTAMPTZ NOT NULL DEFAULT NOW()
+);
+
+INSERT INTO public.admin_credentials (id, email, password_salt, password_hash, two_factor_secret)
+VALUES (
+  'cred-1',
+  'admin@virsaagifts.com',
+  'virsaa-admin-salt-v1',
+  '6a93e16d52fec9c5eb4763099946c0f44c2e5c94f03f9d55e52fe6725319bd06',
+  '74AX7CSCI4YXFI6VFDM56RT5NMK52YWG'
+)
+ON CONFLICT (id) DO NOTHING;
+
+ALTER TABLE public.admin_credentials ENABLE ROW LEVEL SECURITY;
+
+DROP POLICY IF EXISTS "Admin credentials public read" ON public.admin_credentials;
+CREATE POLICY "Admin credentials public read" ON public.admin_credentials FOR SELECT USING (true);
